@@ -7,35 +7,49 @@ User.hasMany(Post, {
     onDelete: 'cascade', 
     foreignKey: { name: 'user_id', allowNull: false } 
 });
-Post.belongsTo(User);
+Post.belongsTo(User, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'user_id', allowNull: false } 
+});
 
 Forum.hasMany(Post, {
     onDelete: 'cascade', 
     foreignKey: { name: 'forum_id', allowNull: false } 
 });
-Post.belongsTo(Forum);
+Post.belongsTo(Forum, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'forum_id', allowNull: false } 
+});
 
 User.hasMany(Subscription, {
     onDelete: 'cascade', 
     foreignKey: { name: 'user_id', allowNull: false } 
 });
-Subscription.belongsTo(User);
+Subscription.belongsTo(User, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'user_id', allowNull: false } 
+});
 
 Forum.hasMany(Subscription, {
     onDelete: 'cascade', 
     foreignKey: { name: 'forum_id', allowNull: false } 
 });
-Subscription.belongsTo(Forum);
+Subscription.belongsTo(Forum, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'forum_id', allowNull: false } 
+});
 
 User.belongsToMany(Forum, {
     through: Subscription,
     as: 'user',
-    foreignKey: 'user_id'
+    onDelete: 'cascade',
+    foreignKey: { name: 'user_id', allowNull: false } 
 });
 Forum.belongsToMany(User, {
     through: Subscription,
     as: 'forum',
-    foreignKey: 'forum_id'
+    onDelete: 'cascade',
+    foreignKey: { name: 'forum_id', allowNull: false } 
 });
 
 module.exports = { User, Post, Forum, Subscription };
