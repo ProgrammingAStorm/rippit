@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Forum } = require('../../models');
+const { Forum, User, Subscription } = require('../../models');
 
 router.get('/', (req, res) => {
     Forum.findAll()
@@ -33,12 +33,24 @@ router.post('/', (req, res) => {
     Forum.create({
         title: req.body.title
     })
-    .then(dbUserData => res.json(dbUserData))
+    .then(dbForumData => res.json(dbForumData))
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 });
+
+router.put('/subscribe', (req, res) => {
+    Forum.subscribe(
+        { forum_id: req.body.forum_id, user_id: req.body.user_id },
+        { User, Subscription }
+    )
+    .then(updatedSubscriptionData => res.json(updatedSubscriptionData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+})
 
 router.put('/:id', (req, res) => {
     Forum.update(req.body, {
@@ -46,12 +58,12 @@ router.put('/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .then(dbUserData => {
-        if (!dbUserData[0]) {
+    .then(dbForumData => {
+        if (!dbForumData[0]) {
             res.status(404).json({ message: 'No forum found with this id' });
             return;
         }
-        res.json(dbUserData);
+        res.json(dbForumData);
     })
     .catch(err => {
         console.log(err);
@@ -67,12 +79,12 @@ router.put('/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .then(dbUserData => {
-        if (!dbUserData) {
+    .then(dbForumData => {
+        if (!dbForumData) {
             res.status(404).json({ message: 'No forum found with this id' });
             return;
         }
-        res.json(dbUserData);
+        res.json(dbForumData);
     })
     .catch(err => {
         console.log(err);

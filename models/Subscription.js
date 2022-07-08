@@ -16,6 +16,7 @@ Subscription.init(
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: false,
             references: {
                 model: 'user',
                 key: 'id'
