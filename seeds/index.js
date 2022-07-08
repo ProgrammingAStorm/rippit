@@ -5,6 +5,7 @@ const seedPosts = require('./post-seeds');
 const seedForums = require('./forum-seeds');
 const seedSubscriptions = require('./subscription-seeds');
 const seedComments = require('./comment-seeds');
+const seedVotes = require('./vote-seeds');
 
 const seedAll = async () => {
     await sequelize.sync({ force: true });
@@ -18,6 +19,9 @@ const seedAll = async () => {
 
     await seedPosts();
     console.log('\n----- SEEDED POSTS -----\n');
+
+    await seedVotes();
+    console.log('\n----- SEEDED VOTES -----\n');
 
     await seedComments();
     console.log('\n----- SEEDED COMMENTS -----\n');

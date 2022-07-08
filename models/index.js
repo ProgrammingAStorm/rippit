@@ -3,6 +3,7 @@ const Post = require('./Posts');
 const Forum = require('./Forum');
 const Subscription = require('./Subscription');
 const Comment = require('./Comment');
+const Vote = require('./Vote');
 
 User.hasMany(Post, {
     onDelete: 'cascade', 
@@ -39,7 +40,6 @@ Subscription.belongsTo(Forum, {
     onDelete: 'cascade', 
     foreignKey: { name: 'forum_id', allowNull: false } 
 });
-
 User.belongsToMany(Forum, {
     through: Subscription,
     as: 'user',
@@ -56,19 +56,46 @@ Forum.belongsToMany(User, {
 Comment.belongsTo(User, {
     onDelete: 'cascade', 
     foreignKey: { name: 'user_id', allowNull: false } 
-});
-  
+});  
 Comment.belongsTo(Post, {
     onDelete: 'cascade', 
     foreignKey: { name: 'post_id', allowNull: false } 
-});
-  
+});  
 User.hasMany(Comment, {
-    foreignKey: 'user_id'
-});
-  
+    onDelete: 'cascade', 
+    foreignKey: { name: 'user_id', allowNull: false } 
+});  
 Post.hasMany(Comment, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'post_id', allowNull: false } 
+});
+
+Vote.belongsTo(User, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'user_id', allowNull: false } 
+});
+Vote.belongsTo(Post, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'post_id', allowNull: false } 
+});
+User.hasMany(Vote, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'user_id', allowNull: false } 
+});
+Post.hasMany(Vote, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'post_id', allowNull: false } 
+});
+
+User.belongsToMany(Post, {
+    through: Vote,
+    as: 'voted_posts',
+    foreignKey: 'user_id'
+});  
+Post.belongsToMany(User, {
+    through: Vote,
+    as: 'voted_posts',
     foreignKey: 'post_id'
 });
 
-module.exports = { User, Post, Forum, Subscription, Comment };
+module.exports = { User, Post, Forum, Subscription, Comment, Vote };
