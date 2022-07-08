@@ -2,6 +2,7 @@ const User = require('./User');
 const Post = require('./Posts');
 const Forum = require('./Forum');
 const Subscription = require('./Subscription');
+const Comment = require('./Comment');
 
 User.hasMany(Post, {
     onDelete: 'cascade', 
@@ -52,4 +53,22 @@ Forum.belongsToMany(User, {
     foreignKey: { name: 'forum_id', allowNull: false } 
 });
 
-module.exports = { User, Post, Forum, Subscription };
+Comment.belongsTo(User, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'user_id', allowNull: false } 
+});
+  
+Comment.belongsTo(Post, {
+    onDelete: 'cascade', 
+    foreignKey: { name: 'post_id', allowNull: false } 
+});
+  
+User.hasMany(Comment, {
+    foreignKey: 'user_id'
+});
+  
+Post.hasMany(Comment, {
+    foreignKey: 'post_id'
+});
+
+module.exports = { User, Post, Forum, Subscription, Comment };
