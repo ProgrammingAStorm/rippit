@@ -1,11 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Subscription extends Model {
+class Comment extends Model {}
 
-}
-
-Subscription.init(
+Comment.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -13,30 +11,31 @@ Subscription.init(
             primaryKey: true,
             autoIncrement: true
         },
+        content: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         user_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            unique: false,
             references: {
                 model: 'user',
                 key: 'id'
             }
         },
-        forum_id: {
+        post_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
             references: {
-                model: 'forum',
+                model: 'post',
                 key: 'id'
             }
         }
-    },    
+    },
     {
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'subscription'
+        modelName: 'comment'
     }
 );
 
-module.exports = Subscription;
+module.exports = Comment;
