@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User, Vote } = require('../../models');
 
 router.get('/', (req, res) => {
     Post.findAll({
@@ -57,6 +57,18 @@ router.post('/', (req, res) => {
     });
 });
 
+router.put('/upvote', (req, res) => {
+    Post.upvote( 
+        { post_id: req.body.post_id, user_id: req.body.user_id },
+        { Vote, Post }
+    )
+    .then(updatedVoteData => res.json(updatedVoteData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
 router.put('/:id', (req, res) => {
     Post.update(
         {
@@ -84,7 +96,7 @@ router.put('/:id', (req, res) => {
 
 //I made this route just in case we end up using it,
 //But it will stay commented out until actually used.
-router.delete('/:id', (req, res) => {
+/*router.delete('/:id', (req, res) => {
     Post.destroy({
         where: {
             id: req.params.id
@@ -101,6 +113,6 @@ router.delete('/:id', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
-});
+});*/
 
 module.exports = router;

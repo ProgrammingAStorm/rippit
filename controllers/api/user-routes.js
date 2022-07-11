@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { User, Subscription, Forum, Post } = require("../../models");
+const { User, Subscription, Forum, Post, Vote } = require("../../models");
 
 router.get('/', (req, res) => {
     User.findAll({
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password'] },
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
@@ -28,6 +28,12 @@ router.get('/:id', (req, res) => {
                 attributes: ['title'],
                 through: Subscription,
                 as: 'forums'
+            },
+            {
+                model: Post,
+                attributes: ['title'],
+                through: Vote,
+                as: 'voted_posts'
             }
         ]
     })
