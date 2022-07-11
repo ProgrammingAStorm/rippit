@@ -1,4 +1,5 @@
 const router = require('express').Router();
+
 const { User, Subscription, Forum, Post } = require("../../models");
 
 router.get('/', (req, res) => {
