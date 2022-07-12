@@ -439,16 +439,28 @@ $('#in-scene').on('click', 'button', function() {
     updateInScene();
 });
 
-/*$('.dropdown-trigger').blur(function(event) {
+$('#save').click(function(event) {
     event.preventDefault();
 
-    const target = $(this)
+    const content = JSON.stringify(data);
+    const title = $('#title').text();
+    const forum_id = 1;
 
-    if(target.hasClass('.dropdown-trigger')) {
-        return;
+    const response = await fetch(`/api/posts`, {
+        method: 'POST',
+        body: JSON.stringify({
+            title,
+            content,
+            forum_id
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+  
+    if (response.ok) {
+        document.location.replace('/dashboard');
+    } else {
+        alert(response.statusText);
     }
-
-    if(target.hasClass('is-active')) {
-        target.removeClass('is-active');
-    }
-});*/
+});
