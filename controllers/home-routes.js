@@ -34,7 +34,6 @@ router.get('/', (req, res) => {
     })
 })
 
-
 // get login
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
@@ -44,5 +43,12 @@ router.get("/login", (req, res) => {
 
   res.render("login");
 });
+
+router.get('/', (req, res) => {
+    console.log(req.session)
+})
+
+
+router.get('/forums')
 
 module.exports = router;

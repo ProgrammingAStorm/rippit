@@ -50,7 +50,8 @@ router.post("/", (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
-  }).then((dbUserData) => {
+  })
+  .then((dbUserData) => {
     req.session.save(() => {
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
@@ -66,7 +67,8 @@ router.post("/login", (req, res) => {
     where: {
       email: req.body.email,
     },
-  }).then((dbUserData) => {
+  })
+  .then((dbUserData) => {
     if (!dbUserData) {
       res.status(400).json({ message: "No user with that email address!" });
       return;
@@ -88,6 +90,10 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+router.post('/logout', (req, res) => {
+  
+})
 
 router.put("/:id", (req, res) => {
   User.update(req.body, {
