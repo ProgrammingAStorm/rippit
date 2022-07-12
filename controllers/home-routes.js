@@ -7,12 +7,12 @@ router.get('/', (req, res) => {
         attributes: [
             'id',
             'title',
-            'content',
+            'comment_text',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         include: [{
             model: Comment,
-            attributes: ['id', 'content', 'post_id', 'user_id'],
+            attributes: ['id', 'comment_text', 'post_id', 'user_id'],
             include: {
                 model: User,
                 attributes: ['username']
@@ -48,14 +48,13 @@ router.get('/', (req, res) => {
     console.log(req.session)
 })
 
-router.get('/post/:id', (re, res) => {
+router.get('/post/:id', (req, res) => {
     Post.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
             'id',
-            'post_url',
             'title',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
