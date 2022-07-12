@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Vote } = require('../../models');
+const { Post, User, Comment, Vote } = require('../../models');
 
 router.get('/', (req, res) => {
     Post.findAll({
@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
 
 router.put('/upvote', (req, res) => {
     if (req.session) {
-        Post.upvote({...req.body, user_id: req.session.user_id }, {Vote, User})
+        Post.upvote({...req.body, user_id: req.session.user_id }, {Vote, Comment, User})
         .then(updatedVoteData => res.json(updatedVoteData))
         .catch(err => {
             console.log(err)
