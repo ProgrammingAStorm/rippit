@@ -1,11 +1,23 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Subscription extends Model {
-
+class Post extends Model {
+    static upvote(body, models) {
+        return models.Vote.create({
+            user_id: body.user_id,
+            post_id: body.post_id
+        })
+        .then(() => {
+            return Post.findOne({
+                where: {
+                    id: body.post_id
+                }
+            });
+        });
+    }
 }
 
-Subscription.init(
+Post.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -13,10 +25,16 @@ Subscription.init(
             primaryKey: true,
             autoIncrement: true
         },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        content: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         user_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            unique: false,
             references: {
                 model: 'user',
                 key: 'id'
@@ -30,13 +48,13 @@ Subscription.init(
                 key: 'id'
             }
         }
-    },    
+    },
     {
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'subscription'
+        modelName: 'post'
     }
 );
 
-module.exports = Subscription;
+module.exports = Post;
