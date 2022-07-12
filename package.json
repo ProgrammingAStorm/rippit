@@ -2,9 +2,9 @@
   "name": "rippit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
     "seed": "node seeds/index.js"
   },
   "keywords": [],
@@ -20,5 +20,8 @@
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.2",
     "three": "^0.142.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

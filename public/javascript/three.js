@@ -439,12 +439,16 @@ $('#in-scene').on('click', 'button', function() {
     updateInScene();
 });
 
-$('#save').click(function(event) {
+$('#save').click(async function(event) {
     event.preventDefault();
 
     const content = JSON.stringify(data);
-    const title = $('#title').text();
+    const title = $('#title').text().trim();
     const forum_id = 1;
+
+    if(!title || title === '') {
+        return;
+    }
 
     const response = await fetch(`/api/posts`, {
         method: 'POST',

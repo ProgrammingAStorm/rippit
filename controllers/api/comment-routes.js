@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     Comment.create({
-        content: req.body.content,
+        comment_text: req.body.comment_text,
         post_id: req.body.post_id,
         user_id: req.body.user_id
     })
