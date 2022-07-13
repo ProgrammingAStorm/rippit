@@ -2,19 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Forum extends Model {
-    static subscribe(body, models) {
-        return models.Subscription.create({
-            user_id: body.user_id,
-            forum_id: body.forum_id
-        })
-        .then(() => {
-            return Forum.findOne({
-                where: {
-                    id: body.forum_id
-                }
-            })
-        });
-    }
+
 }
 
 Forum.init(
