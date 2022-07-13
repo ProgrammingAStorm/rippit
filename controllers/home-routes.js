@@ -64,7 +64,7 @@ router.get('/forums/:id', (req, res) => {
             {
                 model: Post,
                 where: {forum_id: req.params.id},
-                attributes: ['id', 'description', 'post_id', 'user_id','forum_id'],
+                attributes: ['id', 'description', 'user_id','forum_id'],
             }
         ]
     })
@@ -93,7 +93,8 @@ router.get('/forums', (req, res) => {
     .then(dbPostData => {
         const forums = dbPostData.map(forum => forum.get({plain: true}))
         res.render('forums', {
-            forums
+            forums,
+            loggedIn: req.session.loggedIn
         })
     })
     .catch(err => {

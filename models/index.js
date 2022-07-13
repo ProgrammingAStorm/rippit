@@ -1,6 +1,6 @@
 const User = require("./User");
 const Post = require("./Post");
-const Forum = require('./Forum')
+const Forum = require("./Forum");
 const Subscription = require("./Subscription");
 const Comment = require("./Comment");
 const Vote = require("./Vote");
@@ -47,6 +47,7 @@ User.belongsToMany(Forum, {
   foreignKey: { name: "user_id", allowNull: false },
 });
 Forum.belongsToMany(User, {
+  through: Subscription,
   as: "forums",
   onDelete: "cascade",
   foreignKey: { name: "forum_id", allowNull: false },
