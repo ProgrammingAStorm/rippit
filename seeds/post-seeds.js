@@ -9,8 +9,8 @@ const postData = [
         post_id: 1
     },
     {
-        title: 'Title',
-        description: 'Test',
+        title: 'Title2',
+        description: 'Test2',
         user_id: 2,
         forum_id: 2,
         post_id: 2
