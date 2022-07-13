@@ -13,8 +13,14 @@ camera.position.set(5, 5, 5)
 const controls = new OrbitControls(camera, renderer.domElement);
 
 const data = {
-    objects: [],
-    lights: []
+    objects: {
+        real: [],
+        partial: []
+    },
+    lights: {
+        real: [],
+        partial: []
+    }
 };
 
 updateInScene();
@@ -24,9 +30,9 @@ animate();
 function animate() {
     requestAnimationFrame(animate);
 
-    if(data.objects.length > 0) {
-        data.objects.forEach((value) => {
-            rotate(value.obj, value.rotation)
+    if(data.objects.real.length > 0) {
+        data.objects.real.forEach((value, index) => {
+            rotate(value, data.objects.partial[index].rot)
         });
     }
 
@@ -97,8 +103,29 @@ function updateInScene() {
     .parents('.dropdown')
     .removeClass('is-active');
 
-    if(data.objects) {
-        data.objects.forEach((value, index) => {
+    if(data.objects.partial) {
+        data.objects.partial.forEach((value, index) => {
+            $('#in-scene')
+            .append(
+                $('<div></div>')
+                .addClass('dropdown-item is-flex is-align-items-center is-justify-content-space-between')
+                .attr('data-index', index)
+                .append(
+                    $('<p></p>')
+                    .addClass('is-size-6')
+                    .text(value.name)
+                )
+                .append(
+                    $('<button></button>')
+                    .addClass('button is-danger')
+                    .text('Del')
+                    .attr('id', 'del')
+                )
+            );
+        });
+    }
+    if(data.lights.partial) {
+        data.lights.partial.forEach((value, index) => {
             $('#in-scene')
             .append(
                 $('<div></div>')
@@ -122,7 +149,7 @@ function updateInScene() {
 
 function validateObj() {
     const name = $('#obj-name') 
-    const details = $('input[disabled=false]');
+    const details = $('#obj-details').find('input:not(:disabled)');
     const rot = $('input[id*=obj-rot-]');
     const pos = $('input[id*=obj-pos-]');
     const color = $('obj-color input');
@@ -359,18 +386,30 @@ $('#obj-add').click(function(event) {
         z: $('#obj-rot-z').val()
     };
 
-    data.objects.push({
-        name: name,
-        obj: obj,
-        position: position,
-        rotation: rotation
-    })
-
     obj.position.set(
         position.x,
         position.y,
         position.z
     );
+
+    const details = {
+        name: name,
+        color: {
+            red: $('#red').val(),
+            green: $('#green').val(),
+            blue: $('#blue').val()
+        },
+        geo: $('#shape option:selected').val(),
+        mat: $('#material option:selected').val(),
+        pos: position,
+        rot: rotation
+    };
+    $('#obj-details').find('input:not(:disabled)').each(function(index) {   
+        details[`${ $(this).attr('id') }`] = $(this).val();
+    });
+
+    data.objects.real.push(obj);
+    data.objects.partial.push(details);    
 
     scene.add(obj);
 
@@ -388,7 +427,7 @@ $('#light-add').click(function(event) {
 
     validateLight();
 
-    const name = `Light ${ $('light-name') }`
+    const name = `Light ${ $('#light-name').val() }`
     const light = new THREE.PointLight(
         new THREE.Color(`rgb(
             ${ parseInt( $('#light-red').val() ) },
@@ -404,17 +443,22 @@ $('#light-add').click(function(event) {
         z: parseInt( $('#light-pos-z').val() )
     };
 
-    lights.push({
-        name: name,
-        light: light,
-        position: position
-    })
-
     light.position.set(
         position.x,
         position.y,
         position.z
     );
+
+    data.lights.partial.push({
+        name: name,
+        color: {
+            red: $('#light-red').val(),
+            green: $('#light-green').val(),
+            blue: $('#light-blue').val()
+        },
+        position: position
+    });
+    data.lights.real.push(light);
 
     scene.add(light)
 
@@ -428,13 +472,25 @@ $('#light-clear').click(function(event) {
     clearLight();
 });
 
-$('#in-scene').on('click', 'button', function() {
+$('#in-scene').on('click', 'button', function(event) {
+    event.preventDefault()
+
+    const name = $(this).siblings('p').text();
     const index = $(this).parent().attr('data-index');
 
-    data.objects[index].obj.remove();
-    data.objects[index].obj.material.dispose();
+    if(name.includes('Light')) {
+        data.lights.real[index].remove();
+    
+        data.lights.real.splice(index);
+        data.lights.partial.splice(index);
 
-    data.objects.splice(index);
+    } else {
+        data.objects.real[index].remove();
+        data.objects.real[index].material.dispose();
+    
+        data.objects.real.splice(index);
+        data.objects.partial.splice(index);
+    }   
 
     updateInScene();
 });
@@ -442,8 +498,13 @@ $('#in-scene').on('click', 'button', function() {
 $('#save').click(async function(event) {
     event.preventDefault();
 
-    const content = JSON.stringify(data);
-    const title = $('#title').text().trim();
+    const content = JSON.stringify(
+        {
+            objects: data.objects.partial,
+            lights: data.lights.partial
+        }
+    );
+    const title = $('#title').val().trim();
     const forum_id = 1;
 
     if(!title || title === '') {
@@ -463,7 +524,7 @@ $('#save').click(async function(event) {
     });
   
     if (response.ok) {
-        document.location.replace('/dashboard');
+        document.location.replace('/');
     } else {
         alert(response.statusText);
     }

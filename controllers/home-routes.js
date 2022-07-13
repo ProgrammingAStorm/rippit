@@ -4,24 +4,17 @@ const { Post, User, Forum, Subscription, Comment, Vote } = require("../models");
 
 router.get('/', (req, res) => {
     Post.findAll({
-        attributes: [
+        /*attributes: [
             'id',
             'title',
             'comment_text',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
-        ],
-        include: [{
-            model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id'],
-            include: {
+        ],*/
+        include: [
+            {
                 model: User,
                 attributes: ['username']
             }
-        },
-        {
-            model: User,
-            attributes: ['username']
-        }
         ]
     })
     .then(dbPostData => {
@@ -31,7 +24,7 @@ router.get('/', (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(500).json(err)
-    })
+    });
 })
 
 // get login
@@ -43,10 +36,6 @@ router.get("/login", (req, res) => {
 
   res.render("login");
 });
-
-router.get('/', (req, res) => {
-    console.log(req.session)
-})
 
 router.get('/post/:id', (req, res) => {
     Post.findOne({
@@ -61,7 +50,7 @@ router.get('/post/:id', (req, res) => {
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id'],
+                attributes: ['id', 'content', 'post_id', 'user_id'],
                 include: {
                     model: User,
                     attributes: ['username']
