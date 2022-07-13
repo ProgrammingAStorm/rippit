@@ -63,21 +63,24 @@ router.get('/forums/:id', (req, res) => {
         include: [
             {
                 model: Post,
-                where: {forum_id: req.params.id},
-                attributes: ['id', 'description', 'user_id','forum_id'],
+                attributes: ['id', 'title', 'description', 'user_id','forum_id',],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
             }
         ]
     })
     .then(dbPostData => {
         if (!dbPostData) {
-            res.status(404).json({message: 'Could not find a Post with this ID. Please check the ID and try again.'})
+            res.status(404).json({message: 'Could not find a post with this ID. Please check the ID and try again.'})
             return
         }
 
-        const forum = dbPostData.get({plain: true})
+        const post = dbPostData.get({plain: true})
 
         res.render('forum', {
-            forum
+            post
         })
     })
     .catch(err => {
