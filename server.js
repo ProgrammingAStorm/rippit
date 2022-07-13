@@ -5,9 +5,10 @@ const exphbs = require('express-handlebars')
 
 
 const app = express();
+const hbs = exphbs.create({})
 const PORT = process.env.PORT || 3001;
 
-const session = require('express-session');
+const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const sess = {
@@ -40,7 +41,7 @@ app.set('view engine', 'handlebars')
 //     res.sendFile(path.join(__dirname, './public/index.html'))
 //   })
 
-app.use(routes);
+app.use(require("./controllers/"));
 
 
 sequelize.sync({ force: false }).then(() => {
