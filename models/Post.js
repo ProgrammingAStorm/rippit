@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require('./User');
 
 class Post extends Model {
     static upvote(body, models) {
@@ -14,6 +15,7 @@ class Post extends Model {
           attributes: [
             'id',
             'title',
+            'description'
             [
               sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
               'vote_count'
@@ -21,10 +23,10 @@ class Post extends Model {
           ],
           include: [
             {
-              model: models.Comment,
+              model: Comment,
               attributes: ['id', 'comment_text', 'post_id', 'user_id'],
               include: {
-                model: models.User,
+                model: User, 
                 attributes: ['username']
               }
             }
@@ -47,13 +49,11 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        // post_url: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false,
-        //     validate: {
-        //         isURL: true
-        //     }
-        // },
+        description:
+        {
+          type: DataTypes.STRING,
+          allowNull: false 
+        },
         user_id: {
             type: DataTypes.INTEGER,
             references: {

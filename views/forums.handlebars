@@ -2,6 +2,7 @@
     <div class="row">
       <div class="col-12 py-3 order-md-1 order-2 col-md-8">
         <!-- ALL posts are going to be fetched and displayed here -->
+        {{#each forums as |forum|}}
         <div class="card py-2" id="1">
           <div class="card-body">
             <div class="row">
@@ -10,9 +11,8 @@
                     <div class="forum-body" id="1">
                       <div class="row">
                         <div class="col">
-                          <h3 class="comment-title">Forum Title</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse qui suscipit  ...</p>
-                          <a href="#" class="text-center" data-comment-id="1"><span class="forum-comments-count">4</span> Comments</a>
+                          <h3 class="comment-title">{{forum.title}}</h3>
+                          <a href="/forums/{{forum.id}}" class="text-center" data-comment-id="1"><span class="forum-comments-count">4</span> Comments</a>
                         </div>
                         <div class="col-auto">
                           <button class="btn btn-primary">View More</button>
@@ -23,6 +23,7 @@
             </div>
           </div>
         </div>
+        {{/each}}
 
         
       </div>

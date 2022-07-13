@@ -3,6 +3,9 @@
     <a href="" target="_blank">{{post.title}}</a>
     <span>()</span>
   </div>
+  <div>
+    {{post.description}}
+  </div>
   <div class="meta">
     {{post.vote_count}} point(s) by {{post.user.username}}
     |
@@ -27,7 +30,7 @@
   {{#each post.comments}}
   <section class="comment">
     <div class="meta">
-      {{user.username}} on {{created_at}}
+      {{user.username}}
     </div>
     <div class="text">
       {{comment_text}}

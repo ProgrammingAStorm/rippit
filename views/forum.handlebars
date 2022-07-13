@@ -29,49 +29,9 @@
                 <div class="row">
                   <div class="col">
                     <div class="comment-body">
-                      <h3 class="comment-title">Title Placeholder</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse qui suscipit explicabo necessitatibus quia nihil consectetur repellendus pariatur neque facilis nisi sapiente alias, nulla voluptate maiores labore id beatae ab!</p>
-                      <a href="#" class="text-center" data-comment-id="1">View Comments</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card my-3" id="2">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <div class="col">
-                    <div class="comment-header">
-                      <div class="row">
-                        <div class="col-auto">
-                          <img src="assets/images/users/avatar/user-1.png" alt="..." class="img-thumbnail" style="width: 4rem;">
-                        </div>
-                        <div class="col p-0">
-                          <p class="p-0">anotherGuy123</p>
-                          <p class="p-0">Created: <span class="comment-created-date">Aug 15th 2021</span></p>
-                        </div>
-                        <div class="col-auto">
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post-comment" data-comment-id="2"
-                            data-comment-author="anotherGuy123">Comment</button>
-
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="comment-body">
-                      <h3 class="comment-title">Title Placeholder</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse qui suscipit explicabo necessitatibus
-                        quia nihil consectetur repellendus pariatur neque facilis nisi sapiente alias, nulla voluptate maiores
-                        labore id beatae ab!</p>
-                      <a href="#" class="text-center" data-comment-id="1">View Comments</a>
+                      <h3 class="comment-title">{{post.title}}</h3>
+                      <p>{{post.description}}</p>
+                      <a href="/post/{{post.id}}" class="text-center" data-comment-id="1">View Comments</a>
                     </div>
                   </div>
                 </div>
@@ -86,9 +46,7 @@
           <div class="col">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Description</h5>
-                <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure officiis magnam atque quidem quas molestias natus repellat magni beatae, exercitationem nobis sequi corporis? Neque nulla qui quaerat temporibus perferendis architecto?</p>
-                <p class="date-created">Aug 13th 2021</p>
+                <h5>{{post.title}}</h5>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
                   >Create Post</button>
               </div>

@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
         attributes: [
             'id',
             'title',
-            'comment_text',
+            'description',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         include: [{
@@ -51,6 +51,58 @@ router.get('/', (req, res) => {
     console.log(req.session)
 })
 
+router.get('/forums/:id', (req, res) => {
+    Forum.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id',
+            'title',
+        ],
+        include: [
+            {
+                model: Post,
+                where: {forum_id: req.params.id},
+                attributes: ['id', 'description', 'post_id', 'user_id','forum_id'],
+            }
+        ]
+    })
+    .then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({message: 'Could not find a Post with this ID. Please check the ID and try again.'})
+            return
+        }
+
+        const forum = dbPostData.get({plain: true})
+
+        res.render('forum', {
+            forum
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err)
+    })
+})
+
+router.get('/forums', (req, res) => {
+    Forum.findAll({
+        attributes: ['title', 'id']
+    })
+    .then(dbPostData => {
+        const forums = dbPostData.map(forum => forum.get({plain: true}))
+        res.render('forums', {
+            forums
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err)
+    })
+})
+
+
 router.get('/post/:id', (req, res) => {
     Post.findOne({
         where: {
@@ -59,6 +111,7 @@ router.get('/post/:id', (req, res) => {
         attributes: [
             'id',
             'title',
+            'description',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         include: [

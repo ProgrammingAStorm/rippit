@@ -1,8 +1,13 @@
 const router = require('express').Router();
-const { Forum, User, Subscription } = require('../../models');
+const { Forum, User, Subscription, Post } = require('../../models');
 
 router.get('/', (req, res) => {
-    Forum.findAll()
+    Forum.findAll({
+        include: {
+            model: Post,
+            attributes: ['title', 'post_id', 'user_id', 'description', 'forum_id']
+        }
+    })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
         console.log(err);
@@ -14,6 +19,13 @@ router.get('/:id', (req, res) => {
     Forum.findOne({
         where: {
             id: req.params.id
+        },
+        include: {
+            where: {
+                forum_id: req.params.id
+            },
+            model: Post,
+            attributes: ['title', 'post_id', 'user_id', 'description', 'forum_id']
         }
     })
     .then(dbPostData => {
