@@ -1,4 +1,13 @@
-.content {
-    border: 3px solid black;
-    padding: 6px;
+#edit {
+    height: 15rem!important;
+    width: 15rem!important;
+}
+
+#three {
+    height: 5rem!important;
+    width: 5rem!important; 
+}
+
+.width-50vw {
+    width: 50vw;
 }

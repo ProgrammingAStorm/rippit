@@ -1,0 +1,306 @@
+<main class="columns">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+        <section class="column">
+            <form class="box has-background-light">
+                <main class="section is-flex is-justify-content-space-between">
+                    <section>
+                        <section class="field">
+                            <label class="label">Ambient Light</label>
+                
+                            <div class="field is-grouped">
+                                <div class="control">
+                                  <button class="button is-success " id="ambient-on">On</button>
+                                </div>
+                
+                                <div class="control">
+                                  <button class="button is-danger" id="ambient-off">Off</button>
+                                </div>
+                            </div>  
+                        </section>
+                        
+                        <section class="field">
+                            <label class="label">Grid Helper</label>
+                
+                            <div class="field is-grouped">
+                                <div class="control">
+                                  <button class="button is-success " id="grid-on">On</button>
+                                </div>
+                
+                                <div class="control">
+                                  <button class="button is-danger" id="grid-off">Off</button>
+                                </div>
+                            </div> 
+                        </section>
+                    </section>
+                    
+                    <section class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center ml-3">
+                        <section class="field m-0">
+                            <main class="dropdown">
+                                <header class="dropdown-trigger">
+                                    <button class="button has-background-primary has-text-light" id="add-object">
+                                      <span>Add Object</span>
+                                    </button>
+                                </header>
+                
+                                <main class="box dropdown-menu has-background-light width-50vw">
+                                    <div class="dropdown-item">
+                                        <form>
+                                            <main class="columns">
+                                                <section class="column">
+                                                    <div class="field">
+                                                        <label class="label">Name</label>
+                    
+                                                        <div class="control">
+                                                          <input id="obj-name" class="input" type="text" placeholder="[Material] [Shape] [Name]">
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="field">
+                                                        <label class="label">Material</label>
+                    
+                                                        <div class="control">
+                                                            <div class="select">
+                                                                <select id="material">
+                                                                    <option value="basic">Basic</option>
+                                                                    <option value="normal">Normal</option>
+                                                                    <option value="physical">Physical</option>
+                                                                    <option value="toon">Toon</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>                                    
+                                                    </div>   
+                                                    
+                                                    <div id="obj-color" class="field">
+                                                        <label class="label">Color</label>
+                    
+                                                        <div class="control">
+                                                            <input class="input" type="number" placeholder="Red" id="red" min="0" max="255" step="1">
+                                                        </div>
+                                                        
+                                                        <div class="control">
+                                                            <input class="input" type="number" placeholder="Green" id="green" min="0" max="255" step="1">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" type="number" placeholder="Blue" id="blue" min="0" max="255" step="1">
+                                                        </div>
+                                                    </div>
+                                                </section>
+                
+                                                <section class="column">
+                                                    <div class="field">
+                                                        <label class="label">Shape</label>
+                    
+                                                        <div class="control">
+                                                            <div class="select">
+                                                                <select id="shape">
+                                                                    <option value="box">Box</option>
+                                                                    <option value="cone">Cone</option>
+                                                                    <option value="sphere">Sphere</option>
+                                                                    <option value="torus">Torus</option>
+                                                                    <option value="torus-knot">Torus Knot</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div id="obj-details" class="field">
+                                                        <label class="label">Details</label>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="height" min="1" max="10" type="number" placeholder="Height">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="width" min="1" max="10" type="number" placeholder="Width">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="depth" min="1" max="10" type="number" placeholder="Depth">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="radius" min="1" max="10" type="number" placeholder="Radius">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="tube" min="1" max="10" type="number" placeholder="Tube">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="arc" min="1" max="10" type="number" placeholder="Arc">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="p" min="1" max="10" type="number" placeholder="Rotational Twists">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input class="input" id="q" min="1" max="10" type="number" placeholder="Center Twists">
+                                                        </div>                                    
+                                                    </div>
+                                                </section>
+                
+                                                <section class="column">
+                                                    <div id="obj-pos" class="field">
+                                                        <label class="label">Postion</label>
+                                                        
+                                                        <div class="control">
+                                                            <input id="obj-pos-x" class="input" type="number" placeholder="x">
+                                                        </div>
+                                                        <div class="control">
+                                                            <input id="obj-pos-y" class="input" type="number" placeholder="y">
+                                                        </div>
+                                                        <div class="control">
+                                                            <input id="obj-pos-z" class="input" type="number" placeholder="z">
+                                                        </div>
+                                                    </div>
+                
+                                                    <div id="obj-rot" class="field">
+                                                        <label class="label">Rotation</label>
+                
+                                                        <div class="control">
+                                                            <input id="obj-rot-x" class="input" type="number" placeholder="x">
+                                                        </div>
+                                                        <div class="control">
+                                                            <input id="obj-rot-y" class="input" type="number" placeholder="y">
+                                                        </div>
+                                                        <div class="control">
+                                                            <input id="obj-rot-z" class="input" type="number" placeholder="z">
+                                                        </div>
+                                                    </div>
+            
+                                                    <div class="field buttons is-grouped">
+                                                        <div class="control">
+                                                            <button id="obj-add" class="button is-success ">Add</button>
+                                                        </div>
+            
+                                                        <div class="control">
+                                                            <button id="obj-clear" class="button is-danger">Clear</button>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </main>
+                                        </form>
+                                    </div>
+                                </main>
+                            </main>
+                        </section>
+        
+                        <section class="field m-0">
+                            <main class="dropdown">
+                                <header class="dropdown-trigger">
+                                    <button class="button has-background-info has-text-light" id="add-light">
+                                      <span>Add Light</span>
+                                    </button>
+                                </header>
+        
+                                <main class="box dropdown-menu has-background-light width-50vw">
+                                    <div class="dropdown-item">
+                                        <form>
+                                            <main class="columns">
+                                                <section class="column">
+                                                    <div class="field">
+                                                        <label class="label">Name</label>
+                    
+                                                        <div class="control">
+                                                          <input id="light-name" class="input" type="text" placeholder="Light [Name]">
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="field buttons is-grouped">
+                                                        <div class="control">
+                                                            <button id="light-add" class="button is-success">Add</button>
+                                                        </div>
+            
+                                                        <div class="control">
+                                                            <button id="light-clear" class="button is-danger">Clear</button>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                
+                                                <section class="column">
+                                                    <div id="light-color" class="field">
+                                                        <label class="label">Color</label>
+                    
+                                                        <div class="control">
+                                                            <input id="light-red" class="input" type="number" placeholder="Red" id="red" min="0" max="255" step="1">
+                                                        </div>
+                                                        
+                                                        <div class="control">
+                                                            <input id="light-green" class="input" type="number" placeholder="Green" id="green" min="0" max="255" step="1">
+                                                        </div>
+                    
+                                                        <div class="control">
+                                                            <input id="light-blue" class="input" type="number" placeholder="Blue" id="blue" min="0" max="255" step="1">
+                                                        </div>
+                                                    </div>
+                                                </section>     
+                                                
+                                                <section class="column">
+                                                    <div class="field">
+                                                        <label class="label">Postion</label>
+                                                        
+                                                        <div class="control">
+                                                            <input id="light-pos-x" class="input" type="number" placeholder="x">
+                                                        </div>
+                                                        <div class="control">
+                                                            <input id="light-pos-y" class="input" type="number" placeholder="y">
+                                                        </div>
+                                                        <div class="control">
+                                                            <input id="light-pos-z" class="input" type="number" placeholder="z">
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </main>
+                                        </form>
+                                    </div>
+                                </main>
+                            </main>
+                        </section>
+                        
+                        <section>
+                            <main>
+                                <div class="dropdown">
+                                    <div class="dropdown-trigger">
+                                      <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                        <span>In-Scene</span>
+                                      </button>
+                                    </div>
+            
+                                    <div class="dropdown-menu" role="menu">
+                                        <div id="in-scene" class="dropdown-content">
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                        </section>
+                    </section>
+
+                    <section class="buttons">
+                        <button id="save" class="button is-success">Save</button>
+                    </section>
+                </main>
+            </form>
+        </section>
+
+        <section class="column is-flex is-align-items-center is-justify-content-center">
+            <canvas id="edit" class=""></canvas>
+        </section>
+
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+        </script>
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.142.0/build/three.module.js"
+            }
+        }
+        </script>
+        <script type="module" src="javascript/three.js"></script>
+</main>
