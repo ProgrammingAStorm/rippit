@@ -44,10 +44,6 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    if(!req.session.loggedIn) {
-        return;
-    }
-
     Post.create({
         title: req.body.title,
         content: req.body.content,
