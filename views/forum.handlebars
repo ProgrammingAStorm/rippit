@@ -1,0 +1,141 @@
+<div class="container py-5">
+    <div class="row">
+      <div class="col-12 py-3 order-2 order-md-1 col-md-8">
+        <!-- ALL posts are going to be fetched and displayed here -->
+        {{#each post.posts}}
+        <div class="card py-2" id="1">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="row">
+                  <div class="col">
+                    <div class="comment-header">
+                      <div class="row">
+                        <div class="col-auto">
+                          <img src="assets/images/users/avatar/user-1.png" alt="..." class="img-thumbnail" style="width: 4rem;">
+                        </div>
+                        <div class="col p-0">
+                          <p class="p-0">{{user.username}}</p>
+                        </div>
+                        <div class="col-auto">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post-comment" data-comment-id="1"
+                            data-comment-author="andr1123">Comment</button>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="comment-body">
+                      <h3 class="comment-title">{{title}}</h3>
+                      <p>{{description}}</p>
+                      <a href="/post/{{id}}" class="text-center" data-comment-id="1">View Comments</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <div class="col-12 my-3 order-1 order-md-2 col-md-4">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5>{{post.title}}</h5>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                  >Create Post</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Discussion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" name="title" id="recipient-name" placeholder="Enter Title">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Post:</label>
+            <textarea class="form-control" id="message-text" name="post" placeholder="Type your post"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="post-comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input type="hidden" name="comment-id" class="form-control comment-id">
+            <label for="message-text" class="col-form-label">Comment:</label>
+            <textarea class="form-control comment" name="comment-post" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Post Comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+  integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script>
+  $('#post-comment').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var commentID = button.data('comment-id') // Extract info from data-* attributes
+  var commentAuthor = button.data("comment-author"); // username of the root comment
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Post comment to ' + commentAuthor + ' Discussion Post.')
+  modal.find('.modal-body .comment-id').val(commentID);
+})
+</script>
