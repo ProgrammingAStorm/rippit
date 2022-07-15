@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         ],
         include: [{
             model: Comment,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id'],
+            attributes: ['id', 'content', 'post_id', 'user_id'],
             include: {
                 model: User,
                 attributes: ['username']
@@ -35,7 +35,8 @@ router.get('/', (req, res) => {
         console.log(err);
         res.status(500).json(err)
     })
-})
+});
+
 
 // get login
 router.get("/login", (req, res) => {
@@ -49,7 +50,7 @@ router.get("/login", (req, res) => {
 
 router.get('/', (req, res) => {
     console.log(req.session)
-})
+});
 
 router.get('/forums/:id', (req, res) => {
     Forum.findOne({
@@ -87,7 +88,7 @@ router.get('/forums/:id', (req, res) => {
         console.log(err);
         res.status(500).json(err)
     })
-})
+});
 
 router.get('/forums', (req, res) => {
     Forum.findAll({
@@ -104,8 +105,7 @@ router.get('/forums', (req, res) => {
         console.log(err);
         res.status(500).json(err)
     })
-})
-
+});
 
 router.get('/post/:id', (req, res) => {
     Post.findOne({
@@ -150,7 +150,6 @@ router.get('/post/:id', (req, res) => {
         console.log(err);
         res.status(500).json(err)
     })
-})
-
+});
 
 module.exports = router;

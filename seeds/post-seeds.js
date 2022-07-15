@@ -5,8 +5,7 @@ const postData = [
         title: 'Title',
         description: 'Test',
         user_id: 1,
-        forum_id: 1,
-        post_id: 1
+        forum_id: 1
     },
     {
         title: 'Title2',
