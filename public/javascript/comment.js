@@ -21,13 +21,13 @@ async function commentFormHandler(event) {
                 'Content-Type': 'application/json'
             }
         })
-    }
 
-    if (response.ok) {
-        document.location.reload()
-    } else {
-        alert(response.statusText)
-    }
+        if (response.ok) {
+            document.location.reload()
+        } else {
+            alert(response.statusText)
+        }
+    }    
 }
 
 document.querySelector('#comment-form').addEventListener('submit', commentFormHandler)

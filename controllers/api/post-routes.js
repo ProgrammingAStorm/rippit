@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
 
 router.put('/upvote', (req, res) => {
     Post.upvote( 
-        { post_id: req.body.post_id, user_id: req.body.user_id },
+        { post_id: req.body.post_id, user_id: req.session.user_id },
         { Vote, Post }
     )
     .then(updatedVoteData => res.json(updatedVoteData))
