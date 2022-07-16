@@ -39,6 +39,12 @@ const postData = [
         description: 'Test',
         user_id: 6,
         forum_id: 6
+    },
+    {
+        title: 'THree',
+        description: '{"objects":[{"name":"physical cone 123","color":{"red":"123","green":"123","blue":"123"},"geo":"cone","mat":"physical","pos":{"x":"1","y":"1","z":"1"},"rot":{"x":"-1","y":"0.5","z":"-1"},"height":"1","radius":"3"}],"lights":[{"name":"Light 123","color":{"red":"255","green":"76","blue":"123"},"position":{"x":0,"y":0,"z":0}}]}',
+        user_id: 6,
+        forum_id: 6
     }
 ];
 

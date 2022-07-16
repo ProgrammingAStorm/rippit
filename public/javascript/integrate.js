@@ -2,8 +2,18 @@ import * as THREE from 'three';
 import { OrbitControls } from 'https://unpkg.com/three@0.142.0/examples/jsm/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
+
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 12500);
 camera.position.set(5, 5, 5);
+
+const objects = [];
+const post_id = window.location.toString().split('/')[
+    window.location.toString().split('/').length - 1
+]
+const get =  await fetch(`http://localhost:3001/api/posts/${post_id}`, {
+    method: 'GET'
+});
+const content = await get.json();
 
 let controls;
 
@@ -11,18 +21,10 @@ let renderer;
 
 let data;
 
-const objects = [];
-
-const get =  await fetch('http://localhost:3001/api/posts/8', {
-    method: 'GET'
-});
-
-const content = await get.json()
-
-integrate(content, document.querySelector('#edit'));
+integrate(content, document.querySelector('#three'));
 
 function integrate(content, element) {
-    content = content.content;
+    content = content.description;
 
     data = parse(content)
 

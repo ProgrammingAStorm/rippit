@@ -141,9 +141,20 @@ router.get('/post/:id', (req, res) => {
 
         const post = dbPostData.get({plain: true})
 
+
+        data = parse(post.description)
+        let three;
+
+        if(typeof data === 'string') {
+            three = false;
+        } else {
+            three = true;
+        }
+
         res.render('single-post', {
             post,
-            loggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn,
+            three
         })
     })
     .catch(err => {
@@ -151,5 +162,15 @@ router.get('/post/:id', (req, res) => {
         res.status(500).json(err)
     })
 });
+
+function parse(content) {
+    try {
+        const parsed = JSON.parse(content);
+
+        return parsed;
+    } catch (error) {
+        return content;
+    }
+}
 
 module.exports = router;

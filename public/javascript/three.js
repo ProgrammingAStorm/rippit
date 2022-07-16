@@ -108,16 +108,16 @@ function updateInScene() {
             $('#in-scene')
             .append(
                 $('<div></div>')
-                .addClass('dropdown-item is-flex is-align-items-center is-justify-content-space-between')
+                .addClass('d-flex align-items-center justify-content-between px-2')
                 .attr('data-index', index)
                 .append(
                     $('<p></p>')
-                    .addClass('is-size-6')
+                    .addClass('m-0')
                     .text(value.name)
                 )
                 .append(
                     $('<button></button>')
-                    .addClass('button is-danger')
+                    .addClass('btn btn-danger')
                     .text('Del')
                     .attr('id', 'del')
                 )
@@ -129,16 +129,16 @@ function updateInScene() {
             $('#in-scene')
             .append(
                 $('<div></div>')
-                .addClass('dropdown-item is-flex is-align-items-center is-justify-content-space-between')
+                .addClass('d-flex align-items-center justify-content-between px-2')
                 .attr('data-index', index)
                 .append(
                     $('<p></p>')
-                    .addClass('is-size-6')
+                    .addClass('m-0')
                     .text(value.name)
                 )
                 .append(
                     $('<button></button>')
-                    .addClass('button is-danger')
+                    .addClass('btn btn-danger')
                     .text('Del')
                     .attr('id', 'del')
                 )
