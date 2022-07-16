@@ -2,3 +2,8 @@
     border: 3px solid black;
     padding: 6px;
 }
+
+#three {
+    height: 15rem!important;
+    width: 15rem!important;
+}

@@ -15,13 +15,15 @@ async function newForumHandler(event) {
                 'Content-Type': 'application/json'
             }
         })
+
+        if (response.ok) {
+            document.location.reload()
+        } else {
+            alert(response.statusText)
+        }
     }
 
-    if (response.ok) {
-        document.location.reload()
-    } else {
-        alert(response.statusText)
-    }
+    
 }
 
 document.querySelector('#post-forum').addEventListener('submit', newForumHandler)
