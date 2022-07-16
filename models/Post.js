@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const User = require('./User');
+const Comment = require('./Comment')
 
 class Post extends Model {
     static upvote(body, models) {
@@ -11,26 +12,7 @@ class Post extends Model {
         return Post.findOne({
           where: {
             id: body.post_id
-          },
-          attributes: [
-            'id',
-            'title',
-            'description'
-            [
-              sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
-              'vote_count'
-            ]
-          ],
-          include: [
-            {
-              model: Comment,
-              attributes: ['id', 'comment_text', 'post_id', 'user_id'],
-              include: {
-                model: User, 
-                attributes: ['username']
-              }
-            }
-          ]
+          }
         });
       }
     )
