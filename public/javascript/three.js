@@ -3,7 +3,7 @@ import { OrbitControls } from 'https://unpkg.com/three@0.142.0/examples/jsm/cont
 
 const scene = new THREE.Scene();
 
-const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#three') });
+const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#edit') });
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
 
@@ -45,7 +45,7 @@ function clearObj() {
     $('#obj-name').val('');
 
     $('div[id*=obj-]').each(function() {
-        $(this).find('.input').each(function() {
+        $(this).find('.form-control').each(function() {
             $(this).val('');
         })
     });
@@ -184,7 +184,7 @@ function validateObj() {
 function validateLight() {
     const name = $('#light-name') 
     const pos = $('input[id*=light-pos-]');
-    const color = $('light-color input');
+    const color = $('#light-color input');
 
     if(!$(name).val() || $(name).val() === '') {
         return false;
@@ -199,6 +199,8 @@ function validateLight() {
             return false;
         }
     }
+
+    return true;
 }
 
 function getGeo(geometry) {
@@ -332,33 +334,19 @@ $('button[id*=grid]').click(function(event) {
     }
 });
 
-/*$('.dropdown-trigger').click(function(event) {
+$('.dropdown-toggle').click(function(event) {
     event.preventDefault();
 
-    const target = $(this).parent()    
-
-    if(target.hasClass('is-active')) {
-        $('.is-active').removeClass('is-active');
-        
-        target.removeClass('is-active');
-    } else {
-        $('.is-active').removeClass('is-active');
-
-        if(target.find('.dropdown-item').length === 0) {
-            return;
-        }
-
-        target.addClass('is-active');
-    }
-
     clearObj();
+
     clearLight();
+
     updateDetails( $('#shape option:selected').val());
-});*/
+});
 
 $('#obj-clear').click(function(event) {
     event.preventDefault();
-
+    
     clearObj();
 });
 
@@ -426,7 +414,9 @@ $('#shape').change(function() {
 $('#light-add').click(function(event) {
     event.preventDefault();
 
-    validateLight();
+    if(!validateLight()) {
+        return;
+    }
 
     const name = `Light ${ $('#light-name').val() }`
     const light = new THREE.PointLight(
@@ -435,8 +425,8 @@ $('#light-add').click(function(event) {
             ${ parseInt( $('#light-green').val() ) },
             ${ parseInt( $('#light-blue').val() ) })`
         ),
-        6,
-        100
+        50,
+        10
     );
     const position = {
         x: parseInt( $('#light-pos-x').val() ),

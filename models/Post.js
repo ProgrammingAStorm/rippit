@@ -33,7 +33,7 @@ Post.init(
         },
         description:
         {
-          type: DataTypes.STRING,
+          type: DataTypes.TEXT('long'),
           allowNull: false 
         },
         user_id: {
