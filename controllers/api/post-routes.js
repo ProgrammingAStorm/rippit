@@ -50,6 +50,7 @@ router.get('/:id', (req, res) => {
             res.status(404).json({ message: 'No post found with this id' });
             return;
         }
+
         res.json(dbPostData);
     })
     .catch(err => {
@@ -58,7 +59,19 @@ router.get('/:id', (req, res) => {
     });
 });
 
-
+router.post('/', (req, res) => {
+    Post.create({
+        title: req.body.title,
+        description: req.body.description,
+        user_id: req.session.user_id,
+        forum_id: req.body.forum_id,
+    })
+    .then(dbPostData => res.json(dbPostData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
 
 router.put('/upvote', (req, res) => {
 

@@ -2,9 +2,26 @@
   <div class="title">
     <a href="" target="_blank">{{post.title}}</a>
   </div>
-  <div>
-    {{post.description}}
-  </div>
+
+  {{#if three}}
+    <canvas id="three"></canvas>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.142.0/build/three.module.js"
+        }
+      }
+    </script>
+
+    <script src="/javascript/integrate.js" type="module"></script>
+  {{else}}
+    <div>
+      {{post.description}}
+    </div>
+  {{/if}}
+  
+
   <div class="meta">
     {{post.vote_count}} {{post.has_voted}} point(s) by {{post.user.username}}
     |

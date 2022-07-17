@@ -27,7 +27,6 @@ async function newForumHandler(event) {
             alert(response.statusText)
         }
     }
-
 }
 
 document.getElementById('post-forum').addEventListener('submit', newForumHandler)
