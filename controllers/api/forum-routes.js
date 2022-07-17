@@ -43,7 +43,8 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     Forum.create({
-        title: req.body.title
+        title: req.body.title,
+        description: req.body.description,
     })
     .then(dbForumData => res.json(dbForumData))
     .catch(err => {

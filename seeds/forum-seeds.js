@@ -3,24 +3,30 @@ const { Forum } = require('../models');
 const forumData = [
     {
         id: 1,
-        title: 'Forum'
+        title: 'Forum',
+        description: 'this is a description'
     },
     {
         id: 2,
-        title: 'asdfasdf'
+        title: 'asdfasdf',
+        description: 'this is a description'
     },
     {
         id: 3,
-        title: 'another'
+        title: 'another',
+        description: 'this is a description'
     },
     {
-        title: 'Forum'
+        title: 'Forum',
+        description: 'this is a description'
     },
     {
-        title: 'Forum'
+        title: 'Forum',
+        description: 'this is a description'
     },
     {
-        title: 'Forum'
+        title: 'Forum',
+        description: 'this is a description'
     }
 ];
 

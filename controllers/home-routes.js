@@ -8,7 +8,11 @@ router.get('/', (req, res) => {
             'id',
             'title',
             'description',
-            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
+            [
+                sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id AND vote.user_id = user.id)'),
+                'has_voted'
+              ],
         ],
         include: [{
             model: Comment,
@@ -116,7 +120,11 @@ router.get('/post/:id', (req, res) => {
             'id',
             'title',
             'description',
-            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
+            [
+                sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id AND vote.user_id = user.id)'),
+                'has_voted'
+              ],
         ],
         include: [
             {
