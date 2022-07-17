@@ -1,6 +1,21 @@
 const router = require('express').Router();
 const { Post, User, Vote } = require('../../models');
 
+
+router.post('/', (req, res) => {
+    Post.create({
+        title: req.body.title,
+        description: req.body.description,
+        user_id: req.session.user_id,
+        forum_id: req.body.forum_id,
+    })
+    .then(dbPostData => res.json(dbPostData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
 router.get('/', (req, res) => {
     Post.findAll({
         order: [['created_at', 'DESC']],
@@ -59,15 +74,39 @@ router.post('/', (req, res) => {
 });
 
 router.put('/upvote', (req, res) => {
-    Post.upvote( 
-        { post_id: req.body.post_id, user_id: req.session.user_id },
-        { Vote, Post }
-    )
-    .then(updatedVoteData => res.json(updatedVoteData))
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+
+    Vote.findOne({
+        where: {
+            post_id: req.body.post_id,
+            user_id: req.session.user_id
+        }
+    })
+    .then(voteExists => {
+        if(voteExists){
+            Vote.destroy({
+                where: {
+                    post_id: req.body.post_id,
+                    user_id: req.session.user_id
+                }
+            }).then(updatedVoteData => res.json(updatedVoteData))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+        }
+        else{
+            Post.upvote( 
+                { post_id: req.body.post_id, user_id: req.session.user_id },
+                { Vote, Post }
+            )
+            .then(updatedVoteData => res.json(updatedVoteData))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+        }
     });
+    
 });
 
 router.put('/:id', (req, res) => {

@@ -1,13 +1,15 @@
 async function commentFormHandler(event) {
     event.preventDefault()
 
-    const comment_text = document.querySelector('textarea[name="comment-body"]').value.trim();
+    const comment_text = document.getElementById('comment-post').value.trim();
 
     const user_id = sessionStorage.getItem('user_id')
 
-    const post_id = window.location.toString().split('/')[
+    const forum_id = parseInt(window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
-    ]
+    ]);
+
+    const post_id = parseInt(document.getElementById("comment-id").value)
 
     if (comment_text) {
         const response = await fetch('/api/comments', {
@@ -30,4 +32,4 @@ async function commentFormHandler(event) {
     }    
 }
 
-document.querySelector('#comment-form').addEventListener('submit', commentFormHandler)
+document.getElementById('comment-form').addEventListener('click', commentFormHandler)

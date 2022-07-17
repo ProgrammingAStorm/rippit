@@ -23,7 +23,7 @@
   
 
   <div class="meta">
-    {{post.vote_count}} point(s) by {{post.user.username}}
+    {{post.vote_count}} {{post.has_voted}} point(s) by {{post.user.username}}
     |
     <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
   </div>
