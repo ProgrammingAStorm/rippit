@@ -31,27 +31,27 @@
 
 {{#if loggedIn}}
 <form class="comment-form" id="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
-
-  <div>
-    <button type="submit">add comment</button>
-    <button type="button" class="upvote-btn" id="upvote-btn">upvote</button>
-  </div>
-</form>
+    <div class="form-floating"> <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea> <label for="floatingTextarea2">Comments</label> </div>
+  
+    <div class="m-1">
+      <button class="btn btn-primary mr-2"type="submit">Add Comment</button>
+      <button type="button" class="btn btn-secondary upvote-btn" id="upvote-btn">Upvote</button>
+    </div>
+  </form>
 {{/if}}
 
 <div class="comments">
   {{#each post.comments}}
-  <section class="comment">
-    <div class="meta">
-      {{user.username}}
-    </div>
-    <div class="text">
-      {{comment_text}}
-    </div>
-  </section>
+  <section class="comment card">
+      <div class="card-body">
+          <div class="meta card-title">
+        {{user.username}}
+      </div>
+      <div class="text card-text">
+        {{comment_text}}
+          </div>
+      </div>
+    </section>
   {{/each}}
 </div>
 
