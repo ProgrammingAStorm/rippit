@@ -35,7 +35,7 @@ Node, Express, MYSQL, Sequelize, DOTENV, mysql2, express-session, bcrypt, HTML, 
 Distributed under the ISC License. Visit https://choosealicense.com/licenses/isc/ for license information.
 
 ## Links
-Heroku: https://ancient-retreat-86124.herokuapp.com
+Heroku: https://vast-mesa-06136.herokuapp.com/
 Repo: https://github.com/ProgrammingAStorm/rippit
 
 
